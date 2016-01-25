@@ -1,0 +1,10 @@
+{
+    "tags": "cop=xiaomi,owt=inf,pdl=falcon,service=gateway",
+    "bases": ["debug","runtime"],
+    "push": {
+        "enabled": true
+    },
+    "http": {
+        "enabled": true
+    }
+}
