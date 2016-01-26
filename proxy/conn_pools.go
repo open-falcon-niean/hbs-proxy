@@ -213,7 +213,7 @@ func (this *RpcConnPools) Call(addr, method string, args interface{}, resp inter
 
 	conn, err := connPool.Fetch()
 	if err != nil {
-		return fmt.Errorf("get connection fail, err %s, proc: %s", err.Error(), connPool.Proc())
+		return fmt.Errorf("get connection fail, err %s", err.Error())
 	}
 
 	rpcClient := conn.(RpcClient)
@@ -227,11 +227,11 @@ func (this *RpcConnPools) Call(addr, method string, args interface{}, resp inter
 	select {
 	case <-time.After(callTimeout):
 		connPool.ForceClose(conn)
-		return fmt.Errorf("call timeout, proc %s", connPool.Proc())
+		return fmt.Errorf("call timeout")
 	case err = <-done:
 		if err != nil {
 			connPool.ForceClose(conn)
-			err = fmt.Errorf("call fail, err %s, proc %s", err.Error(), connPool.Proc())
+			err = fmt.Errorf("call fail, err %s", err.Error())
 		} else {
 			connPool.Release(conn)
 		}
