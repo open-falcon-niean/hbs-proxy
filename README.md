@@ -20,7 +20,7 @@ go get ./...
 ./control build
 ./control pack
 ```
-最后一步会pack出一个`falcon-hbs-proxy-$vsn.tar.gz`的安装包，拿着这个包去部署服务即可。我们也提供了Ubuntu12.0.X编译好的安装包，在[这里]()。
+最后一步会pack出一个`falcon-hbs-proxy-$vsn.tar.gz`的安装包，拿着这个包去部署服务即可。我们也提供了Ubuntu12.0.X编译好的安装包，在[这里](https://github.com/open-falcon-niean/hbs-proxy/releases/tag/v0.0.1)。
 
 ### Deploy
 服务部署，包括配置修改、启动服务、检验服务、停止服务等。这之前，需要将安装包解压到服务的部署目录下。
