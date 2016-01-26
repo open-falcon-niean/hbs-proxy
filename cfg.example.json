@@ -1,0 +1,21 @@
+{
+    "debug": true,
+    "http": {
+        "enabled": true,
+        "listen": "0.0.0.0:6031"
+    },
+    "rpc": {
+        "enabled": true,
+        "listen": "0.0.0.0:6030"
+    },
+    "hbs": {
+        "enabled": true,
+        "connTimeout": 5000,
+        "callTimeout": 20000,
+        "maxConns": 32,
+        "maxIdle": 32,
+        "cluster": {
+            "t0": "127.0.0.1:7030"
+        }
+    }
+}
