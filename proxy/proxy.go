@@ -67,17 +67,20 @@ func proxy(method string, args interface{}, reply interface{}) error {
 		addr := HbsMap[host]
 
 		// 过滤掉建连缓慢的host, 否则会严重影响发送速率
-		cc := pfc.GetCounterCount(host)
+		key := addr + "." + method
+		cc := pfc.GetCounterCount(key)
 		if cc >= HbsMaxConns {
 			continue
 		}
-
-		pfc.Counter(host, 1)
+		pfc.Counter(key, 1)
 		err = ConnPools.Call(addr, method, args, reply)
-		pfc.Counter(host, -1)
+		pfc.Counter(key, -1)
 
 		if err == nil {
+			pfc.Meter(key+".ok", 1)
 			sendOk = true
+		} else {
+			pfc.Meter(key+".error", 1)
 		}
 	}
 	return err

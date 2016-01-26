@@ -31,8 +31,10 @@ _testmain.go
 
 *_test.go
 *.bak
+*.bin
+*.log
 /var
 /falcon-hbs-proxy*
 /cfg.json
-/test/bench
+/test/bench/build
 .gitversion

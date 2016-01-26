@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/open-falcon/hbs-proxy/g"
+	"github.com/open-falcon/hbs-proxy/proxy"
 )
 
 func configProcHttpRoutes() {
@@ -16,6 +17,6 @@ func configProcHttpRoutes() {
 	})
 
 	http.HandleFunc("/proc/hbs/pools", func(w http.ResponseWriter, r *http.Request) {
-		RenderDataJson(w, nil)
+		RenderDataJson(w, proxy.ConnPools.Proc())
 	})
 }

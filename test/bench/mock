@@ -1,0 +1,51 @@
+#!/bin/bash
+## test home
+testdir=$(cd $(dirname $0)/; pwd)
+## word home
+workdir=$(dirname $testdir)
+cd $workdir
+
+## mockagent
+srcname=mockagent
+appname=$srcname-bench-test
+builddir=$testdir/build
+masrc=$testdir/$srcname.go
+matarget=$builddir/$appname.bin
+
+function build(){
+	rm -rf $matarget &&\
+	go build -o $matarget $masrc
+    ec=$?
+    [ $ec -eq 0 ] && echo -e "mockagent build, ok" || { echo -e "mockagent build, error"; exit $ec;}
+}
+
+function stop(){
+    pids=`ps -ef | grep $appname.bin | grep -v grep | awk '{print $2}'`
+    for pid in $pids
+    do
+        kill -9  $pid &>/dev/null
+        echo -e "kill mockagent, $pid"
+        sleep 0.01
+    done 
+    echo -e "kill mockagent ok"
+}
+
+function start(){
+    $matarget "-m=$1"
+}
+
+action=$1
+case $action in
+    "build")
+        build
+        ;;
+    "start")
+        start $2
+        ;;
+    "stop")
+        stop
+        ;;
+    *)
+        build && start $1 && stop 
+esac
+
