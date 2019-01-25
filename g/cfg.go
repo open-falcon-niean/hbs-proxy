@@ -28,10 +28,11 @@ type HbsConfig struct {
 }
 
 type GlobalConfig struct {
-	Debug bool        `json:"debug"`
-	Http  *HttpConfig `json:"http"`
-	Rpc   *RpcConfig  `json:"rpc"`
-	Hbs   *HbsConfig  `json:"hbs"`
+	Debug  bool        `json:"debug"`
+	Http   *HttpConfig `json:"http"`
+	Rpc    *RpcConfig  `json:"rpc"`
+	Hbs    *HbsConfig  `json:"hbs"`
+	AesKey string      `json:"aesKey"`
 }
 
 var (

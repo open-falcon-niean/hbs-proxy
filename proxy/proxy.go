@@ -6,7 +6,7 @@ import (
 	"math/rand"
 
 	pfc "github.com/niean/goperfcounter"
-	"github.com/open-falcon/common/model"
+	"github.com/open-falcon/falcon-plus/common/model"
 
 	"github.com/open-falcon/hbs-proxy/g"
 )
