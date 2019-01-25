@@ -2,6 +2,9 @@ package proxy
 
 import (
 	"fmt"
+	"github.com/open-falcon/falcon-plus/common/encrypt"
+	"github.com/open-falcon/falcon-plus/common/model"
+	"github.com/open-falcon/hbs-proxy/g"
 	"net"
 	"net/rpc"
 	"net/rpc/jsonrpc"
@@ -221,7 +224,15 @@ func (this *RpcConnPools) Call(addr, method string, args interface{}, resp inter
 
 	done := make(chan error)
 	go func() {
-		done <- rpcClient.Call(method, args, resp)
+		aesKey := g.Config().AesKey
+
+		if len(aesKey) == 16 {
+			encrypted, _ := encrypt.Encrypt(encrypt.Encode(args), []byte(aesKey))
+			done <- rpcClient.Call(method, model.Encrypt{Byte: encrypted}, resp)
+		} else {
+			done <- rpcClient.Call(method, args, resp)
+		}
+
 	}()
 
 	select {

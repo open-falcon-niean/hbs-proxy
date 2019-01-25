@@ -4,6 +4,7 @@
         "enabled": true,
         "listen": "0.0.0.0:6031"
     },
+    "aesKey": "",
     "rpc": {
         "enabled": true,
         "listen": "0.0.0.0:6030"
